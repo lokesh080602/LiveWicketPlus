@@ -3,6 +3,8 @@ package com.ta.livewicketplus.util;
 import java.io.File;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
+
 import com.ta.livewicketplus.controller.LoginServlet;
 import com.ta.livewicketplus.controller.LogoutServlet;
 import com.ta.livewicketplus.controller.MatchServlet;
@@ -11,18 +13,22 @@ import com.ta.livewicketplus.controller.UserServlet;
 
 public class LogUtil {
 
-	static {
-		Logger logger = LogManager.getLogger(LogUtil.class);
-		File logConfigFile = new File("C:/Users/lokesh.v/LiveWicketPlus/config/log4j2.xml");
-		if (!logConfigFile.exists()) {
-			logger.info("Log4j2 configuration file not found at: {}", logConfigFile.getPath());
-		} else {
-
-			System.setProperty("log4j.configurationFile", logConfigFile.getPath());
-			logger.info("Log4j configuration file set to: {}", logConfigFile.getPath());
-		}
+	public static void getLog(){
+		System.setProperty("log4j.configurationFile", "D:\\LiveWicketPlus\\config\\log4j2.xml");
+		Configurator.initialize(null, System.getProperty("log4j.configurationFile"));
+		
+//		File logConfigFile = new File("C:\\Users\\lokesh.v\\LiveWicketPlus\\config\\log4j2.xml");
+//		if (!logConfigFile.exists()) {
+//		    System.out.println("Log4j2 configuration file not found at: " + logConfigFile.getPath());
+//		} else {
+//			
+//			System.setProperty("log4j.configurationFile", logConfigFile.getAbsolutePath());
+//			Configurator.initialize(null, System.getProperty("log4j.configurationFile"));
+//			
+//		    Logger logger = LogManager.getLogger(LogUtil.class);
+//		    logger.info("Log4j configuration file set to: {}", logConfigFile.getPath());
+//		}
 	}
-
 	private LogUtil() {
 	}
 
@@ -39,6 +45,7 @@ public class LogUtil {
 	}
 
 	public static Logger getLoginServletLogger() {
+		getLog();
 		return LogManager.getLogger(LoginServlet.class);
 	}
 

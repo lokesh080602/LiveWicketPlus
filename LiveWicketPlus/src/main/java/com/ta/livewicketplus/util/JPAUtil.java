@@ -14,12 +14,13 @@ public class JPAUtil {
 	private static final Logger logger = LoggerFactory.getLogger(JPAUtil.class);
 	private static EntityManagerFactory emf;
 
-	static {
+	public static Properties externalProperties = new Properties();
+	
+	public static void loadConfig() {
 		try {
-			Properties externalProperties = new Properties();
-			String externalFilePath = "C:/Users/lokesh.v/LiveWicketPlus/config/db.properties";
+			String externalFilePath = "D:\\LiveWicketPlus\\config\\db.properties";
 			externalProperties.load(new FileInputStream(externalFilePath));
-
+            System.out.println("running");
 			emf = Persistence.createEntityManagerFactory("LiveWicketPlus", externalProperties);
 			logger.info("EntityManagerFactory created successfully with external properties.");
 		} catch (IOException e) {
@@ -30,6 +31,7 @@ public class JPAUtil {
 	}
 
 	public static EntityManager getEntityManager() {
+		loadConfig();
 		return emf.createEntityManager();
 	}
 
