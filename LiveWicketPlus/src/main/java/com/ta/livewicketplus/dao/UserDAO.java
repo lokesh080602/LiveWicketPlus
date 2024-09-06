@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
+
+import org.hibernate.Hibernate;
+
 import com.ta.livewicketplus.dto.User;
 import com.ta.livewicketplus.util.JPAUtil;
 
@@ -52,8 +55,12 @@ public class UserDAO {
 
     public User getUserById(long userId) {
         EntityManager em = JPAUtil.getEntityManager();
+        User user = em.find(User.class, userId);
         try {
-            return em.find(User.class, userId);
+            Hibernate.initialize(user.getFavoriteTeams());
+            Hibernate.initialize(user.getFavoritePlayers());
+        
+            return user;
         } finally {
             em.close();
         }

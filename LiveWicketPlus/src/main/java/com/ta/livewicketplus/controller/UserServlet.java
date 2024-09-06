@@ -37,7 +37,7 @@ public class UserServlet extends HttpServlet {
 			showUpdateForm(request, response);
 		} else {
 			logger.warn("Unknown action: {}", action);
-			listUsers(request, response);
+			viewUser(request,response);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class UserServlet extends HttpServlet {
 			updateUser(request, response);
 		} else {
 			logger.warn("Unknown action: {}", action);
-			listUsers(request, response);
+		
 		}
 	}
 
@@ -66,34 +66,39 @@ public class UserServlet extends HttpServlet {
 	}
 
 	private void viewUser(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String idParam = request.getParameter("id");
-		if (idParam != null && !idParam.isEmpty()) {
-			try {
-				long id = Long.parseLong(idParam);
-				User user = userService.getUserById(id);
-				request.setAttribute("user", user);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("viewUser.jsp");
+	        throws ServletException, IOException {
+	  
+	    Integer userId = Integer.parseInt(request.getParameter("id").trim());
+	    System.out.println(userId);
+	    if (userId != null) {
+	        try {    
+	            User user = userService.getUserById(userId);
+	            System.out.println(user);
+	            System.out.println(user.getUsername());
+	            request.setAttribute("user", user);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
 				dispatcher.forward(request, response);
-				logger.info("Viewed user details for ID: {}", id);
-			} catch (NumberFormatException e) {
-				logger.error("Invalid user ID format: {}", idParam, e);
-				request.setAttribute("error", "Invalid user ID format.");
-				listUsers(request, response);
-			}
-		} else {
-			logger.error("Invalid user ID format: {}", idParam);
-			listUsers(request, response);
-		}
+				logger.info("Viewed user profile for ID: {}", userId);
+	        } catch (Exception e) {
+	            logger.error("Error retrieving user with ID: {}", userId, e);
+	            request.setAttribute("error", "Error retrieving user details.");
+	        }
+	    } else {
+	    	response.sendRedirect("home.jsp");
+	        logger.error("User ID not found in session.");
+	    }
 	}
+
 
 	private void showUpdateForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String idParam = request.getParameter("id");
+		String idParam = request.getParameter("id").trim();
+		System.out.println(idParam+"SHowUpdateForm");
 		if (idParam != null && !idParam.isEmpty()) {
 			try {
 				long id = Long.parseLong(idParam);
 				User user = userService.getUserById(id);
+				System.out.println(user.getUsername()+"showUpdate");
 				request.setAttribute("user", user);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("updateUser.jsp");
 				dispatcher.forward(request, response);
@@ -101,11 +106,11 @@ public class UserServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				logger.error("Invalid user ID format: {}", idParam, e);
 				request.setAttribute("error", "Invalid user ID format.");
-				listUsers(request, response);
+				
 			}
 		} else {
 			logger.error("User ID not provided for update.");
-			listUsers(request, response);
+		
 		}
 	}
 
@@ -138,33 +143,35 @@ public class UserServlet extends HttpServlet {
 	}
 
 	private void updateUser(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-			long id = Long.parseLong(request.getParameter("userId"));
-			User user = userService.getUserById(id);
-			if (user != null) {
-				user.setUsername(request.getParameter("username"));
-				user.setPassword(request.getParameter("password"));
-				user.setEmail(request.getParameter("email"));
-				List<String> favoriteTeams = List.of(request.getParameter("favoriteTeams").split(","));
-				List<String> favoritePlayers = List.of(request.getParameter("favoritePlayers").split(","));
-				user.setFavoriteTeams(favoriteTeams);
-				user.setFavoritePlayers(favoritePlayers);
+	        throws ServletException, IOException {
+	    try {
+	        long id = Long.parseLong(request.getParameter("id").trim());
+	        User user = userService.getUserById(id);
+	        if (user != null) {
+	            user.setUsername(request.getParameter("username"));
+	            user.setPassword(request.getParameter("password"));
+	            user.setEmail(request.getParameter("email"));
+	            List<String> favoriteTeams = List.of(request.getParameter("favoriteTeams").split(","));
+	            List<String> favoritePlayers = List.of(request.getParameter("favoritePlayers").split(","));
+	            user.setFavoriteTeams(favoriteTeams);
+	            user.setFavoritePlayers(favoritePlayers);
 
-				userService.updateUser(user);
-				logger.info("Updated user with ID: {}", id);
-				response.sendRedirect("UserServlet?action=list");
-			} else {
-				logger.warn("User not found for update with ID: {}", id);
-				listUsers(request, response);
-			}
-		} catch (NumberFormatException e) {
-			logger.error("Invalid input format", e);
-			request.setAttribute("error", "Invalid input format. Please check your data.");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/updateUser.jsp");
-			dispatcher.forward(request, response);
-		}
+	            userService.updateUser(user);
+	            logger.info("Updated user with ID: {}", id);
+
+	            response.sendRedirect("UserServlet?action=view&id="+id);
+	        } else {
+	            logger.warn("User not found for update with ID: {}", id);
+	            
+	        }
+	    } catch (NumberFormatException e) {
+	        logger.error("Invalid input format", e);
+	        request.setAttribute("error", "Invalid input format. Please check your data.");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/updateUser.jsp");
+	        dispatcher.forward(request, response);
+	    }
 	}
+
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

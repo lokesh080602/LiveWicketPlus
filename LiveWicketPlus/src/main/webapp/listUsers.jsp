@@ -26,9 +26,7 @@
                     <td>${user.username}</td>
                     <td>${user.email}</td>
                     <td>
-                        <a class="button" href="UserServlet?action=view&id=${user.userId}">View</a>
-                        <a class="button" href="UserServlet?action=update&id=${user.userId}">Update</a>
-                        <a class="button" href="UserServlet?action=delete&id=${user.userId}">Delete</a>
+                        <a style="text-align:center;" href="UserServlet?action=delete&id=${user.userId}">Delete</a>
                     </td>
                 </tr>
             </c:forEach>

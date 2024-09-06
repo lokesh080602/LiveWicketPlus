@@ -20,7 +20,6 @@ public class JPAUtil {
 		try {
 			String externalFilePath = "D:\\LiveWicketPlus\\config\\db.properties";
 			externalProperties.load(new FileInputStream(externalFilePath));
-            System.out.println("running");
 			emf = Persistence.createEntityManagerFactory("LiveWicketPlus", externalProperties);
 			logger.info("EntityManagerFactory created successfully with external properties.");
 		} catch (IOException e) {

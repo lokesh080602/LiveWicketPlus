@@ -16,18 +16,6 @@ public class LogUtil {
 	public static void getLog(){
 		System.setProperty("log4j.configurationFile", "D:\\LiveWicketPlus\\config\\log4j2.xml");
 		Configurator.initialize(null, System.getProperty("log4j.configurationFile"));
-		
-//		File logConfigFile = new File("C:\\Users\\lokesh.v\\LiveWicketPlus\\config\\log4j2.xml");
-//		if (!logConfigFile.exists()) {
-//		    System.out.println("Log4j2 configuration file not found at: " + logConfigFile.getPath());
-//		} else {
-//			
-//			System.setProperty("log4j.configurationFile", logConfigFile.getAbsolutePath());
-//			Configurator.initialize(null, System.getProperty("log4j.configurationFile"));
-//			
-//		    Logger logger = LogManager.getLogger(LogUtil.class);
-//		    logger.info("Log4j configuration file set to: {}", logConfigFile.getPath());
-//		}
 	}
 	private LogUtil() {
 	}

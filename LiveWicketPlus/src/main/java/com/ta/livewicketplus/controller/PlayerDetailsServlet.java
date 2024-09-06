@@ -133,7 +133,8 @@ public class PlayerDetailsServlet extends HttpServlet {
     private void updatePlayer(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            int id = Integer.parseInt(request.getParameter("playerId"));
+
+            int id = Integer.parseInt(request.getParameter("id").trim());
             PlayerDetails player = playerService.getPlayerDetails(id);
             if (player != null) {
                 player.setName(request.getParameter("name"));

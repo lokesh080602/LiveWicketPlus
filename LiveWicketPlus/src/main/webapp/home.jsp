@@ -1,158 +1,186 @@
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Match and Player Management</title>
-    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/png/logo-white.png">
-  
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: "Aclonica", sans-serif;
-            font-weight: 400;
-            color: #E1D9D1;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            width: 100%;
-            height: 100vh;
-            background-image: url('${pageContext.request.contextPath}/static/png/logo-color.png');
-            background-size: cover;
-            background-repeat:no-repeat;
-            background-position: center;
-        }
+<meta charset="UTF-8">
+<title>Match and Player Management</title>
+<link rel="icon" type="image/x-icon"
+	href="${pageContext.request.contextPath}/static/png/logo-white.png">
 
-        .header {
-            color: #fff;
-            padding: 10px;
-            text-align: right;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<style>
+.material-symbols-outlined {
+	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48
+}
 
-        .logout-button, .user-list-button {
-            color: white;
-            text-decoration: none;
-            background-color: black;
-            padding:6px 16px;
-            border-radius: 5px;
-            margin-left: 10px;
-            font-size:14px;
-        }
+body {
+	font-family: "Aclonica", sans-serif;
+	font-weight: 400;
+	color: #E1D9D1;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	color: #333;
+	width: 100%;
+	height: 100vh;
+	background-image:
+		url('${pageContext.request.contextPath}/static/png/logo-color.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
 
-        .logout-button:hover, .user-list-button:hover {
-            background-color: white;
-            color:black;
-            text-decoration:none;
-        }
+.header {
+	color: #fff;
+	padding: 10px;
+	text-align: right;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 
-        h1 {
-            text-align: center;
-            color: black;;
-            margin-top: 0px;
-        }
+.logout-button, .user-list-button {
+	color: white;
+	text-decoration: none;
+	background-color: black;
+	padding: 6px 16px;
+	border-radius: 5px;
+	margin-left: 10px;
+	font-size: 14px;
+}
 
-        h2 {
-            color: #333;
-        }
+.logout-button:hover, .user-list-button:hover {
+	background-color: white;
+	color: black;
+	text-decoration: none;
+}
 
-        ul {
-            list-style: none;
-            padding-left: 0px;
-            padding-right: 10px;
-            width: 600px;
-        }
-        li {
-            display: inline-block;
-        }
+h1 {
+	text-align: center;
+	color: black;;
+	margin-top: 0px;
+}
 
-        .button {
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 15px;
-            color:white;
-            display: inline-block;
-            margin-top:30px;
-        }
+h2 {
+	color: #333;
+}
 
-        .button:hover {
-           color:black;
-        }
+ul {
+	list-style: none;
+	padding-left: 0px;
+	padding-right: 10px;
+	width: 600px;
+}
 
-  
-       
+li {
+	display: inline-block;
+}
 
-        #content {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            padding: 20px;
-        }
+.button {
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 15px;
+	color: white;
+	display: inline-block;
+	margin-top: 30px;
+}
 
-        #match, #player {
-            padding: 20px;
-            border-radius: 8px;
-            width: 500px;
-            margin: 10px;
-        }
+.button:hover {
+	color: black;
+}
 
-        #match h2, #player h2 {
-            font-size: 18px; /* Reduced font size for headings */
-        }
+#content {
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	padding: 20px;
+}
 
-        #forms {
-            margin: 20px;
-        }
+#match, #player {
+	padding: 20px;
+	border-radius: 8px;
+	width: 500px;
+	margin: 10px;
+}
 
-        .li1 {
-            margin-left: 0px;
-            margin-right: 90px;
-        }
+#match h2, #player h2 {
+	font-size: 18px; /* Reduced font size for headings */
+}
 
-        .li2 {
-            margin-right: 70px;
-        }
-    </style>
+#forms {
+	margin: 20px;
+}
+
+.li1 {
+	margin-left: 0px;
+	margin-right: 90px;
+}
+
+.li2 {
+	margin-right: 70px;
+}
+
+svg {
+	color: white;
+}
+</style>
 </head>
 <body>
-    <c:if test="${empty sessionScope.loggedInUser}">
-        <c:redirect url="login.jsp"/>
-    </c:if>
 
-    <div class="header">
-        <c:if test="${sessionScope.loggedInUser.username == 'admin'}">
-            <a href="UserServlet?action=list" class="user-list-button">View User List</a>
-        </c:if>
-        <a href="logout" class="logout-button">Logout</a>
-    </div>
+	<c:if test="${empty sessionScope.loggedInUser}">
+		<c:redirect url="login.jsp" />
+	</c:if>
 
-    <h1>Match and Player Management System</h1>
+	<div class="header">
+		<c:choose>
+			<c:when test="${sessionScope.loggedInUser.username == 'admin'}">
+				<a href="UserServlet?action=list" class="user-list-button">View
+					User List</a>
+			</c:when>
+			<c:otherwise>
+			<a href="UserServlet?action=view&id=${sessionScope.loggedInUser.userId}">
+				<svg xmlns="http://www.w3.org/2000/svg" height="48px"
+					viewBox="0 -960 960 960" width="48px" fill="#000000">
+					<path
+						d="M222-255q63-44 125-67.5T480-346q71 0 133.5 23.5T739-255q44-54 62.5-109T820-480q0-145-97.5-242.5T480-820q-145 0-242.5 97.5T140-480q0 61 19 116t63 109Zm257.81-195q-57.81 0-97.31-39.69-39.5-39.68-39.5-97.5 0-57.81 39.69-97.31 39.68-39.5 97.5-39.5 57.81 0 97.31 39.69 39.5 39.68 39.5 97.5 0 57.81-39.69 97.31-39.68 39.5-97.5 39.5Zm.66 370Q398-80 325-111.5t-127.5-86q-54.5-54.5-86-127.27Q80-397.53 80-480.27 80-563 111.5-635.5q31.5-72.5 86-127t127.27-86q72.76-31.5 155.5-31.5 82.73 0 155.23 31.5 72.5 31.5 127 86t86 127.03q31.5 72.53 31.5 155T848.5-325q-31.5 73-86 127.5t-127.03 86Q562.94-80 480.47-80Zm-.47-60q55 0 107.5-16T691-212q-51-36-104-55t-107-19q-54 0-107 19t-104 55q51 40 103.5 56T480-140Zm0-370q34 0 55.5-21.5T557-587q0-34-21.5-55.5T480-664q-34 0-55.5 21.5T403-587q0 34 21.5 55.5T480-510Zm0-77Zm0 374Z" /></svg></a>
+			</c:otherwise>
+		</c:choose>
 
-    <div id="content">
-        <div id="match">
-            <h2>Manage Matches</h2>
-            <ul>
-                <li class="li1"><a href="addMatch.jsp" class="button">Add New Match</a></li>
-                <li class="li2"><a href="MatchServlet?action=list" class="button">View All Matches</a></li>
-            </ul>
-        </div>
+		<a href="logout" class="logout-button">Logout</a>
+	</div>
 
-        <div id="player">
-            <h2>Manage Players</h2>
-            <ul>
-                <li class="li1"><a href="addPlayer.jsp" class="button">Add New Player</a></li>
-                <li class="li2"><a href="PlayerServlet?action=list" class="button">View All Players</a></li>
-            </ul>
-        </div>
-    </div>
+	<h1>Match and Player Management System</h1>
 
+	<div id="content">
+		<div id="match">
+			<h2>Manage Matches</h2>
+			<ul>
+				<li class="li1"><a href="addMatch.jsp" class="button">Add
+						New Match</a></li>
+				<li class="li2"><a href="MatchServlet?action=list"
+					class="button">View All Matches</a></li>
+			</ul>
+		</div>
 
+		<div id="player">
+			<h2>Manage Players</h2>
+			<ul>
+				<li class="li1"><a href="addPlayer.jsp" class="button">Add
+						New Player</a></li>
+				<li class="li2"><a href="PlayerServlet?action=list"
+					class="button">View All Players</a></li>
+			</ul>
+		</div>
+	</div>
 </body>
 </html>
