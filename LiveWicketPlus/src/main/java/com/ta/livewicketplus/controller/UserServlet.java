@@ -71,12 +71,10 @@ public class UserServlet extends HttpServlet {
 	        throws ServletException, IOException {
 	  
 	    Integer userId = Integer.parseInt(request.getParameter("id").trim());
-	    System.out.println(userId);
+
 	    if (userId != null) {
 	        try {    
 	            User user = userService.getUserById(userId);
-	            System.out.println(user);
-	            System.out.println(user.getUsername());
 	            request.setAttribute("user", user);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("profile.jsp");
 				dispatcher.forward(request, response);
@@ -93,12 +91,10 @@ public class UserServlet extends HttpServlet {
 	private void showUpdateForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String idParam = request.getParameter("id").trim();
-		System.out.println(idParam+"SHowUpdateForm");
 		if (idParam != null && !idParam.isEmpty()) {
 			try {
 				long id = Long.parseLong(idParam);
 				User user = userService.getUserById(id);
-				System.out.println(user.getUsername()+"showUpdate");
 				request.setAttribute("user", user);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("updateUser.jsp");
 				dispatcher.forward(request, response);
