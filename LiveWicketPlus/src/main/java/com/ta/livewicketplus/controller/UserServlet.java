@@ -83,10 +83,8 @@ public class UserServlet extends HttpServlet {
 	            logger.error("Error retrieving user with ID: {}", userId, e);
 	            request.setAttribute("error", "Error retrieving user details.");
 	        }
-	    } else {
-	    	response.sendRedirect("home.jsp");
-	        logger.error("User ID not found in session.");
 	    }
+	    logger.error("User ID not found in session.");
 	}
 
 

@@ -62,19 +62,16 @@
         <h1>User Profile</h1>
 
         <c:choose>
-            <c:when test="${not empty user}">
-               
+            <c:when test="${not empty sessionScope.loggedInUser}">  
                 <div class="profile-details">
-                    <p><strong>Username:</strong> ${user.username}</p>
-                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Username:</strong> ${sessionScope.loggedInUser.username}</p>
+                    <p><strong>Email:</strong> ${sessionScope.loggedInUser.email}</p>
                     <!-- Add more user details here as needed -->
-                    <a href="UserServlet?action=update&id=${user.userId}" class="btn">Edit Profile</a>
-                    <a href="LogoutServlet" class="btn logout">Logout</a>
+                    <a href="UserServlet?action=update&id=${sessionScope.loggedInUser.userId}" class="btn">Edit Profile</a>
+                    <a href="logout" class="btn logout">Logout</a>
                 </div>
-            </c:when>
-            
+            </c:when>  
         </c:choose>
     </div>
-
 </body>
 </html>

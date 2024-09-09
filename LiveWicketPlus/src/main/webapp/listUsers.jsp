@@ -26,7 +26,9 @@
                     <td>${user.username}</td>
                     <td>${user.email}</td>
                     <td>
+                    <c:if test="${user.username != 'admin'}">
                         <a style="text-align:center;" href="UserServlet?action=delete&id=${user.userId}">Delete</a>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
