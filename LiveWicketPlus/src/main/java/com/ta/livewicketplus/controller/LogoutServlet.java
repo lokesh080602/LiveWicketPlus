@@ -31,6 +31,7 @@ public class LogoutServlet extends HttpServlet {
             logger.warn("Logout attempt with no active session.");
         }
         
+        
         response.sendRedirect("login.jsp");
     }
 }

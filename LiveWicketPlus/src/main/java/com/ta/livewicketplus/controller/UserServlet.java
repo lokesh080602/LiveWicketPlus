@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.Logger;
 
 import com.ta.livewicketplus.dto.User;
@@ -155,6 +157,8 @@ public class UserServlet extends HttpServlet {
 	            user.setFavoritePlayers(favoritePlayers);
 
 	            userService.updateUser(user);
+	            HttpSession session = request.getSession();
+				session.setAttribute("loggedInUser", user);
 	            logger.info("Updated user with ID: {}", id);
 
 	            response.sendRedirect("UserServlet?action=view&id="+id);

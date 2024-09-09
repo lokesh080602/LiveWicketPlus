@@ -16,11 +16,11 @@ body {
 }
 
 h1, h2 {
-  color: #FFD700; /* Gold color for headers */
+  color: #FF69B4; /* Hot pink color for headers */
 }
 
 a {
-  color: deeppink; /* Gold color for links */
+  color: #FF1493; /* Deep pink color for links */
   text-decoration: none;
   text-align: center;
 }
@@ -83,15 +83,16 @@ input {
 }
 
 input[type="submit"] {
-  background-color: #FFD700; /* Gold color for submit button */
-  color: #333; /* Dark text for contrast */
+  background-color: #FF69B4; /* Hot pink color for submit button */
+  color: white; /* White text for contrast */
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-left:10px;
 }
 
 input[type="submit"]:hover {
-  background-color: #FFC107; /* Darker gold on hover */
+  background-color: #FF1493; /* Deep pink on hover */
 }
 
 table {
@@ -109,20 +110,20 @@ table th, table td {
 }
 
 table th {
-  background-color: #FFD700; /* Gold color for header background */
-  color: #333; /* Dark text for better contrast */
+  background-color: #FF69B4; /* Hot pink color for header background */
+  color: #fff; /* White text for contrast */
   font-weight: bold;
 }
 
 table tr:nth-child(even) {
-  background-color: #FFFACD; /* Light yellow color for alternating rows */
+  background-color: #FFE4E1; /* Misty rose color for alternating rows */
 }
 
 a.button {
   display: inline-block;
   padding: 10px 20px;
   border-radius: 4px;
-  background-color: #FFD700; /* Gold color for button */
+  background-color: #FF69B4; /* Hot pink color for button */
   color: white;
   text-align: center;
   margin-top: 20px;
@@ -130,7 +131,5 @@ a.button {
 }
 
 a.button:hover {
-  background-color: #FFC107; /* Darker gold on hover */
+  background-color: #FF1493; /* Deep pink on hover */
 }
-
-

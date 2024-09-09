@@ -71,6 +71,6 @@
         </c:otherwise>
     </c:choose>
     <br>
-    <a href="index.jsp" class="button">Back to Home</a>
+    <a href="index.jsp">Back to Home</a>
 </body>
 </html>

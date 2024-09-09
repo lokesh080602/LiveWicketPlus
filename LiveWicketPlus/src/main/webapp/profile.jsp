@@ -73,5 +73,7 @@
             </c:when>  
         </c:choose>
     </div>
+     <br>
+    <a href="home.jsp" >Back to Home</a>
 </body>
 </html>
