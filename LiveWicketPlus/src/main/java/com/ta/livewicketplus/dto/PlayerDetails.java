@@ -16,9 +16,6 @@ public class PlayerDetails {
     private String bowlingStyle;
     private String currentMatchStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "match_id")
-    private Match match;
 
     public PlayerDetails() {}
 
@@ -105,11 +102,5 @@ public class PlayerDetails {
         this.currentMatchStatus = currentMatchStatus;
     }
 
-    public Match getMatch() {
-        return match;
-    }
 
-    public void setMatch(Match match) {
-        this.match = match;
-    }
 }

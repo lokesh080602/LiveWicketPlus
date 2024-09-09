@@ -23,6 +23,7 @@ a {
   color: #FF1493; /* Deep pink color for links */
   text-decoration: none;
   text-align: center;
+  margin-bottom:20px;
 }
 
 a:hover {

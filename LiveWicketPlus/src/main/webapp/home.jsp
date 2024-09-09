@@ -217,8 +217,10 @@ svg {
 		<div id="match">
 			<h2>Manage Matches</h2>
 			<ul>
+			<c:if test="${sessionScope.loggedInUser.username == 'admin'}">
 				<li class="li1"><a href="addMatch.jsp" class="button">Add
 						New Match</a></li>
+						</c:if>
 				<li class="li2"><a href="MatchServlet?action=list"
 					class="button">View All Matches</a></li>
 			</ul>
@@ -227,8 +229,10 @@ svg {
 		<div id="player">
 			<h2>Manage Players</h2>
 			<ul>
+			<c:if test="${sessionScope.loggedInUser.username == 'admin'}">
 				<li class="li1"><a href="addPlayer.jsp" class="button">Add
 						New Player</a></li>
+			</c:if>
 				<li class="li2"><a href="PlayerServlet?action=list"
 					class="button">View All Players</a></li>
 			</ul>

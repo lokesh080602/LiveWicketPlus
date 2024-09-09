@@ -2,12 +2,13 @@ package com.ta.livewicketplus.dto;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,8 +32,12 @@ public class Match {
     @Column(name = "scoreTeamB")
     private int scoreTeamB;
 
-  
-    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
+    @JoinTable(
+            name = "match_playerdetails",
+            joinColumns = @JoinColumn(name = "match_id"),
+            inverseJoinColumns = @JoinColumn(name = "player_id")
+        )
     private List<PlayerDetails> playerDetailsList;
 
     public Long getMatchId() {

@@ -1,6 +1,7 @@
 package com.ta.livewicketplus.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,7 +15,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.ta.livewicketplus.dto.Match;
+import com.ta.livewicketplus.dto.PlayerDetails;
 import com.ta.livewicketplus.service.MatchService;
+import com.ta.livewicketplus.service.PlayerService;
 
 @WebServlet("/MatchServlet")
 public class MatchServlet extends HttpServlet {
@@ -34,7 +37,9 @@ public class MatchServlet extends HttpServlet {
                 request.getRequestDispatcher("listMatches.jsp").forward(request, response);
                 logger.info("Listing all matches");
 
-            } else if ("view".equals(action) && matchId != null) {
+            }else if (action.equals("delete")) {
+                deleteMatch(request, response);}
+            else if ("view".equals(action) && matchId != null) {
                 int id = Integer.parseInt(matchId);
                 Match match = matchService.getMatchDetails(id);
                 request.setAttribute("match", match);
@@ -54,7 +59,6 @@ public class MatchServlet extends HttpServlet {
             }
         } catch (Exception e) {
             logger.error("An error occurred while processing the GET request", e);
-            response.sendRedirect("error.jsp");
         }
     }
 
@@ -128,9 +132,28 @@ public class MatchServlet extends HttpServlet {
             match.setTeamB(request.getParameter("teamB"));
             match.setScoreTeamA(Integer.parseInt(request.getParameter("scoreTeamA")));
             match.setScoreTeamB(Integer.parseInt(request.getParameter("scoreTeamB")));
+
+            String[] playerIds = request.getParameterValues("players[]");
+ 
+            if (playerIds != null) {
+                List<PlayerDetails> playerDetailsList = new ArrayList<>();
+                PlayerService playerService = new PlayerService();
+                
+                for (String playerId : playerIds) {
+
+                    PlayerDetails player = playerService.getPlayerDetails(Integer.parseInt(playerId));
+                    if (player != null) {
+                        playerDetailsList.add(player);
+                    }
+                }
+
+                match.setPlayerDetailsList(playerDetailsList);
+            }
             matchService.saveMatch(match);
             logger.info("Added new match: {}", match);
+
             response.sendRedirect("MatchServlet?action=list");
+
         } catch (NumberFormatException e) {
             logger.error("Invalid input format", e);
             request.setAttribute("error", "Invalid input format. Please check your data.");
@@ -143,6 +166,7 @@ public class MatchServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }
     }
+
 
     private void updateMatch(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

@@ -34,7 +34,7 @@
             </c:forEach>
         </table>
         <br>
-        <a class="button" href="addUser.jsp">Add New User</a>
+        <a href="addUser.jsp">Add New User</a>
     </div>
 </body>
 </html>

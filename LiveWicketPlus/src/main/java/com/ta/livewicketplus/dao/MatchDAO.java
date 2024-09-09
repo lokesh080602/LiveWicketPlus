@@ -37,13 +37,17 @@ public class MatchDAO {
 	}
 
 	public List<Match> getAllMatches() {
-		EntityManager em = JPAUtil.getEntityManager();
-		try {
-			return em.createQuery("SELECT m FROM Match m", Match.class).getResultList();
-		} finally {
-			em.close();
-		}
+	    EntityManager em = JPAUtil.getEntityManager();
+	    try {
+	        // JPQL query to fetch matches along with their associated players
+	        return em.createQuery(
+	            "SELECT m FROM Match m LEFT JOIN FETCH m.players", Match.class
+	        ).getResultList();
+	    } finally {
+	        em.close();
+	    }
 	}
+
 
 	public void updateMatch(Match match) {
 		EntityManager em = JPAUtil.getEntityManager();
@@ -51,12 +55,21 @@ public class MatchDAO {
 	}
 
 	public void deleteMatch(long matchId) {
-		EntityManager em = JPAUtil.getEntityManager();
-		executeInsideTransaction(em, () -> {
-			Match match = em.find(Match.class, matchId);
-			if (match != null) {
-				em.remove(match);
-			}
-		});
+	    EntityManager em = JPAUtil.getEntityManager();
+	    executeInsideTransaction(em, () -> {
+	        // Find the match entity
+	        Match match = em.find(Match.class, matchId);
+	        
+	        if (match != null) {
+	            // Step 1: Clear associations with PlayerDetails
+	            match.getPlayerDetailsList().clear();
+	            em.merge(match); // Update the match to save the changes
+
+	            // Step 2: Delete the match
+	            em.remove(match);
+	        }
+	    });
 	}
+
+
 }
