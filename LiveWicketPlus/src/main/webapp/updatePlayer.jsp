@@ -40,7 +40,7 @@
 <h1>Update Player Details</h1>
 <form action="PlayerServlet" method="post">
     <input type="hidden" name="action" value="update">
-    <input type="hidden" name="id" value="${player.playerDetailsId}">
+    <input type="hidden" name="id" value="${player.playerId}">
     
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" value="${player.name}" required>

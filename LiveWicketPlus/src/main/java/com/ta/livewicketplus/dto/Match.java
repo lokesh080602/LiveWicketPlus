@@ -11,9 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 @Entity
-@Table(name = "`match`")  // Use backticks to escape the reserved keyword
+@Table(name = "match")
 public class Match {
 
     @Id
@@ -34,10 +33,10 @@ public class Match {
 
     @OneToMany
     @JoinTable(
-            name = "match_playerdetails",
-            joinColumns = @JoinColumn(name = "match_id"),
-            inverseJoinColumns = @JoinColumn(name = "player_id")
-        )
+        name = "match_playerdetails",
+        joinColumns = @JoinColumn(name = "match_id"),
+        inverseJoinColumns = @JoinColumn(name = "player_id")
+    )
     private List<PlayerDetails> playerDetailsList;
 
     public Long getMatchId() {

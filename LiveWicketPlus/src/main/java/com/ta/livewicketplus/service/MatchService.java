@@ -1,9 +1,10 @@
 package com.ta.livewicketplus.service;
 
+import java.util.List;
+
 import com.ta.livewicketplus.dao.MatchDAO;
 import com.ta.livewicketplus.dto.Match;
-
-import java.util.List;
+import com.ta.livewicketplus.dto.PlayerDetails;
 
 public class MatchService {
 
@@ -43,5 +44,10 @@ public class MatchService {
     public long getMatchCount() {
         return getAllMatches().size();
     }
+    public List<PlayerDetails> getPlayersByMatchId(Long long1){
+       return matchDAO.getPlayersByMatchId(long1);
+    }
+
+    
 }
 

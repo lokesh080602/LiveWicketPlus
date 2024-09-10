@@ -31,7 +31,7 @@
     <tbody>
         <c:forEach var="player" items="${players}">
             <tr>
-                <td>${player.playerDetailsId}</td>
+                <td>${player.playerId}</td>
                 <td>${player.name}</td>
                 <td>${player.age}</td>
                 <td>${player.nationality}</td>
@@ -41,10 +41,10 @@
                 <td>${player.bowlingStyle}</td>
                 <td>${player.currentMatchStatus}</td>
                 <td>
-                    <a style="text-align:center;"href="PlayerServlet?action=view&playerId=${player.playerDetailsId}">View</a> 
+                    <a style="text-align:center;"href="PlayerServlet?action=view&playerId=${player.playerId}">View</a> 
                      <c:if test="${sessionScope.loggedInUser.username == 'admin'}">|
-                    <a style="text-align:center;" href="PlayerServlet?action=update&playerId=${player.playerDetailsId}">Update</a> |
-                    <a style="text-align:center;"href="PlayerServlet?action=delete&playerId=${player.playerDetailsId}">Delete</a>
+                    <a style="text-align:center;" href="PlayerServlet?action=update&playerId=${player.playerId}">Update</a> |
+                    <a style="text-align:center;"href="PlayerServlet?action=delete&playerId=${player.playerId}">Delete</a>
                     </c:if>
                 </td>
             </tr>
@@ -52,7 +52,9 @@
     </tbody>
 </table>
 <br>
+	<c:if test="${sessionScope.loggedInUser.username == 'admin'}">
 <a href="addPlayer.jsp">Add New Player</a> |
+</c:if>
 <a href="home.jsp">Back to Home</a>
 
 </body>

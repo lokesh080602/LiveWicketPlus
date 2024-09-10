@@ -30,9 +30,8 @@
             <label for="players">Select Players:</label>
             <select name="players" multiple>
                 <c:forEach var="player" items="${players}">
-                    <option value="${player.playerId}" 
-                            <c:if test="${player.playerId == match.selectedPlayerId}">selected</c:if>>
-                        ${player.playerName}
+                    <option value="${player.playerId}">
+                        ${player.name}
                     </option>
                 </c:forEach>
             </select><br />

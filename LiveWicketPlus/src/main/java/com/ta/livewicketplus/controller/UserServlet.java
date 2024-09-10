@@ -117,11 +117,9 @@ public class UserServlet extends HttpServlet {
 			user.setUsername(request.getParameter("username"));
 			user.setPassword(request.getParameter("password"));
 			user.setEmail(request.getParameter("email"));
-			List<String> favoriteTeams = List.of(request.getParameter("favoriteTeams").split(","));
-			List<String> favoritePlayers = List.of(request.getParameter("favoritePlayers").split(","));
-			user.setFavoriteTeams(favoriteTeams);
-			user.setFavoritePlayers(favoritePlayers);
-			boolean userExist = userService.alreadExitUser(user);
+			user.setFavoritePlayers(request.getParameter("favoritePlayers"));
+			user.setFavoriteTeams(request.getParameter("favoriteTeams"));
+		    boolean userExist = userService.alreadExitUser(user);
 			logger.info("User Existing or Not: {}", userExist);
 			if (!userExist) {
 				userService.saveUser(user);
@@ -144,13 +142,11 @@ public class UserServlet extends HttpServlet {
 	        long id = Long.parseLong(request.getParameter("id").trim());
 	        User user = userService.getUserById(id);
 	        if (user != null) {
-	            user.setUsername(request.getParameter("username"));
-	            user.setPassword(request.getParameter("password"));
-	            user.setEmail(request.getParameter("email"));
-	            List<String> favoriteTeams = List.of(request.getParameter("favoriteTeams").split(","));
-	            List<String> favoritePlayers = List.of(request.getParameter("favoritePlayers").split(","));
-	            user.setFavoriteTeams(favoriteTeams);
-	            user.setFavoritePlayers(favoritePlayers);
+	        	user.setUsername(request.getParameter("username"));
+				user.setPassword(request.getParameter("password"));
+				user.setEmail(request.getParameter("email"));
+				user.setFavoritePlayers(request.getParameter("favoritePlayers"));
+				user.setFavoriteTeams(request.getParameter("favoriteTeams"));
 
 	            userService.updateUser(user);
 	            HttpSession session = request.getSession();

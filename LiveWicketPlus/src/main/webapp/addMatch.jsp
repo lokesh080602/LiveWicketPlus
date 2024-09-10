@@ -102,7 +102,7 @@
             List<PlayerDetails> players = playerService.getAllPlayerDetails();
             for (PlayerDetails player : players) {
         %>
-            <option value="<%= player.getPlayerDetailsId() %>"><%= player.getName() %><%="  "+player.getTeam()%></option>
+            <option value="<%= player.getPlayerId() %>"><%= player.getName() %><%="  "+player.getTeam()%></option>
         <% 
             }
         %>
@@ -116,7 +116,7 @@
         </ul>
     </div>
 
-    <input class="button" type="button" value="Add Match" onclick="submitForm()" />
+    <input class="button" type="submit" value="Add Match" onclick="submitForm()" />
 </form>
 <br>
 <a href="MatchServlet?action=list">Back to Match List</a>

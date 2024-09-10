@@ -8,7 +8,6 @@
     <title>Update User Profile</title>
     <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/static/png/logo-white.png">
     <link rel="stylesheet" type="text/css" href="styles.css">
-   
 </head>
 <body>
 
@@ -27,17 +26,17 @@
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" value="${user.password}" required>
 
-            <label for="favoriteTeams">Favorite Teams (comma-separated):</label>
-            <input type="text" id="favoriteTeams" name="favoriteTeams" value="${user.favoriteTeams.get(0)}">
+            <label for="favoriteTeams">Favorite Teams:</label>
+            <input type="text" id="favoriteTeams" name="favoriteTeams"
+                   value="${user.favoriteTeams}">
 
-            <label for="favoritePlayers">Favorite Players (comma-separated):</label>
-            <input type="text" id="favoritePlayers" name="favoritePlayers" value="${user.favoritePlayers.get(0)}">
-
+            <label for="favoritePlayers">Favorite Players:</label>
+            <input type="text" id="favoritePlayers" name="favoritePlayers"
+                   value="${user.favoritePlayers}">
             <input type="submit" value="Update Profile">
         </form>
         <br>
         <a href="profile.jsp">Back to Profile</a>
     </div>
-
 </body>
 </html>

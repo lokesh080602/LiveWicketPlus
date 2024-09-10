@@ -21,12 +21,8 @@ public class User {
     private String username;
     private String password;
     private String email;
-
-    @ElementCollection
-    private List<String> favoriteTeams;
-
-    @ElementCollection
-    private List<String> favoritePlayers;
+    private String favoriteTeams;
+    private String favoritePlayers;
 
 	public Long getUserId() {
 		return userId;
@@ -52,19 +48,20 @@ public class User {
 		this.email = email;
 	}
 
-	public List<String> getFavoriteTeams() {
+
+	public String getFavoriteTeams() {
 		return favoriteTeams;
 	}
 
-	public void setFavoriteTeams(List<String> favoriteTeams) {
+	public void setFavoriteTeams(String favoriteTeams) {
 		this.favoriteTeams = favoriteTeams;
 	}
 
-	public List<String> getFavoritePlayers() {
+	public String getFavoritePlayers() {
 		return favoritePlayers;
 	}
 
-	public void setFavoritePlayers(List<String> favoritePlayers) {
+	public void setFavoritePlayers(String favoritePlayers) {
 		this.favoritePlayers = favoritePlayers;
 	}
 

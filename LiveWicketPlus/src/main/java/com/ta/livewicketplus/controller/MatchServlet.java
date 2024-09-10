@@ -46,14 +46,27 @@ public class MatchServlet extends HttpServlet {
                 request.getRequestDispatcher("viewMatchDetails.jsp").forward(request, response);
                 logger.info("Viewing match details for ID: {}", id);
 
-            } else if ("edit".equals(action) && matchId != null) {
-                int id = Integer.parseInt(matchId);
-                Match match = matchService.getMatchDetails(id);
-                request.setAttribute("match", match);
-                request.getRequestDispatcher("updateMatch.jsp").forward(request, response);
-                logger.info("Editing match details for ID: {}", id);
+            }else if ("edit".equals(action) && matchId != null) {
+                try {
+                    int id = Integer.parseInt(matchId);
+                    Match match = matchService.getMatchDetails(id);
 
-            } else {
+                    List<PlayerDetails> players = matchService.getPlayersByMatchId(match.getMatchId());
+
+                    request.setAttribute("players", players);           
+                    request.setAttribute("match", match);
+                    request.getRequestDispatcher("updateMatch.jsp").forward(request, response);
+                    
+                    logger.info("Editing match details for ID: {}", id);
+
+                } catch (NumberFormatException e) {
+                    logger.error("Invalid matchId format: {}", matchId, e);
+                } catch (Exception e) {
+                    logger.error("Error while editing match details", e);
+
+                }
+            }
+ else {
                 logger.warn("Invalid action or match ID not provided.");
                 response.sendRedirect("MatchServlet?action=list");
             }
@@ -130,8 +143,8 @@ public class MatchServlet extends HttpServlet {
             Match match = new Match();
             match.setTeamA(request.getParameter("teamA"));
             match.setTeamB(request.getParameter("teamB"));
-            match.setScoreTeamA(Integer.parseInt(request.getParameter("scoreTeamA")));
-            match.setScoreTeamB(Integer.parseInt(request.getParameter("scoreTeamB")));
+            match.setScoreTeamA(Integer.parseInt(request.getParameter("scoreTeamA").trim()));
+            match.setScoreTeamB(Integer.parseInt(request.getParameter("scoreTeamB").trim()));
 
             String[] playerIds = request.getParameterValues("players[]");
  

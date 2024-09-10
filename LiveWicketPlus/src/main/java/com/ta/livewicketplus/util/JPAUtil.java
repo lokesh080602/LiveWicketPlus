@@ -10,37 +10,42 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class JPAUtil {
-	private JPAUtil(){}
-	private static final Logger logger = LoggerFactory.getLogger(JPAUtil.class);
-	private static EntityManagerFactory emf;
 
-	protected static Properties externalProperties = new Properties();
-	
-	public static void loadConfig(){
-		
-		try {
-			String externalFilePath = "D:\\LiveWicketPlus\\config\\db.properties";
-			FileInputStream fileInput= new FileInputStream(externalFilePath);
-			externalProperties.load(fileInput);
-			emf = Persistence.createEntityManagerFactory("LiveWicketPlus", externalProperties);
-			logger.info("EntityManagerFactory created successfully with external properties.");
-			fileInput.close();
-		} catch (IOException e) {
-			logger.error("Error loading external properties file: " + e.getMessage(), e);
-		} catch (Exception ex) {
-			logger.error("Failed to create EntityManagerFactory: " + ex.getMessage(), ex);
-		}
-		
-	}
+    private static final Logger logger = LoggerFactory.getLogger(JPAUtil.class);
+    private static EntityManagerFactory emf;
 
-	public static EntityManager getEntityManager(){
-		loadConfig();
-		return emf.createEntityManager();
-	}
+    // Static block to initialize EntityManagerFactory once
+    static {
+        loadConfig();
+    }
 
-	public static void close() {
-		if (emf != null && emf.isOpen()) {
-			emf.close();
-		}
-	}
+    // Prevent instantiation
+    private JPAUtil() {}
+
+    private static void loadConfig() {
+        Properties externalProperties = new Properties();
+        try (FileInputStream fileInput = new FileInputStream("D:\\LiveWicketPlus\\config\\db.properties")) {
+            externalProperties.load(fileInput);
+            emf = Persistence.createEntityManagerFactory("LiveWicketPlus", externalProperties);
+            logger.info("EntityManagerFactory created successfully with external properties.");
+        } catch (IOException e) {
+            logger.error("Error loading external properties file: " + e.getMessage(), e);
+        } catch (Exception ex) {
+            logger.error("Failed to create EntityManagerFactory: " + ex.getMessage(), ex);
+        }
+    }
+
+    public static EntityManager getEntityManager() {
+        if (emf == null || !emf.isOpen()) {
+            loadConfig();  // Re-load if the EntityManagerFactory is not available
+        }
+        return emf.createEntityManager();
+    }
+
+    public static void close() {
+        if (emf != null && emf.isOpen()) {
+            emf.close();
+            logger.info("EntityManagerFactory closed.");
+        }
+    }
 }

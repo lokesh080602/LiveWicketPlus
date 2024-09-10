@@ -2,7 +2,11 @@ package com.ta.livewicketplus.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import org.hibernate.Hibernate;
 import com.ta.livewicketplus.dto.Match;
+import com.ta.livewicketplus.dto.PlayerDetails;
 import com.ta.livewicketplus.util.JPAUtil;
 
 public class MatchDAO {
@@ -36,18 +40,15 @@ public class MatchDAO {
 		}
 	}
 
-	public List<Match> getAllMatches() {
-	    EntityManager em = JPAUtil.getEntityManager();
-	    try {
-	        // JPQL query to fetch matches along with their associated players
-	        return em.createQuery(
-	            "SELECT m FROM Match m LEFT JOIN FETCH m.players", Match.class
-	        ).getResultList();
-	    } finally {
-	        em.close();
-	    }
-	}
 
+	public List<Match> getAllMatches() {
+		EntityManager em = JPAUtil.getEntityManager();
+		try {
+			return em.createQuery("SELECT m FROM Match m", Match.class).getResultList();
+		} finally {
+			em.close();
+		}
+	}
 
 	public void updateMatch(Match match) {
 		EntityManager em = JPAUtil.getEntityManager();
@@ -57,19 +58,39 @@ public class MatchDAO {
 	public void deleteMatch(long matchId) {
 	    EntityManager em = JPAUtil.getEntityManager();
 	    executeInsideTransaction(em, () -> {
-	        // Find the match entity
-	        Match match = em.find(Match.class, matchId);
-	        
+	        Match match = em.find(Match.class, matchId);     
 	        if (match != null) {
-	            // Step 1: Clear associations with PlayerDetails
 	            match.getPlayerDetailsList().clear();
-	            em.merge(match); // Update the match to save the changes
-
-	            // Step 2: Delete the match
+	            em.merge(match);
 	            em.remove(match);
 	        }
 	    });
 	}
+	
+
+
+	public List<PlayerDetails> getPlayersByMatchId(long matchId) {
+	    EntityManager entityManager = JPAUtil.getEntityManager();
+	    List<PlayerDetails> players = null;
+	    
+	    try {
+	        String jpql = "SELECT p FROM Match m JOIN m.playerDetailsList p WHERE m.id = :matchId";
+	        players = entityManager.createQuery(jpql, PlayerDetails.class)
+	                               .setParameter("matchId", matchId)
+	                               .getResultList();
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Handle exceptions appropriately
+	    } finally {
+	        entityManager.close();
+	    }
+	    
+	    return players;
+	}
+
+
+
+
+
 
 
 }
