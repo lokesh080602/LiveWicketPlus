@@ -9,10 +9,11 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
         <properties>
-            <property name="hibernate.config.location" value="classpath:db.properties"/>
-            <property name="hibernate.show_sql" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2012Dialect"/>
+            <!-- Externalized properties can be injected dynamically -->
+            <!-- Make sure to set these dynamically from your Java code -->
+            <property name="hibernate.dialect" value="${hibernate.dialect}"/>
+            <property name="hibernate.show_sql" value="${hibernate.show_sql}"/>
+            <property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}"/>
         </properties>
     </persistence-unit>
 </persistence>
