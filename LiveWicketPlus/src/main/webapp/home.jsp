@@ -88,14 +88,14 @@ li {
 .button {
 	text-decoration: none;
 	border-radius: 5px;
-	font-size: 15px;
+	font-size: 17px;
 	color: white;
 	display: inline-block;
 	margin-top: 30px;
 }
 
 .button:hover {
-	color: black;
+	color: red;
 }
 
 #content {
