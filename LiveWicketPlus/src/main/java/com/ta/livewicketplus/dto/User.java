@@ -1,9 +1,5 @@
 package com.ta.livewicketplus.dto;
-
-import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

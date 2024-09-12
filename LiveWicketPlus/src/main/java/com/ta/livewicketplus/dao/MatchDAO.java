@@ -2,9 +2,7 @@ package com.ta.livewicketplus.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import org.hibernate.Hibernate;
+
 import com.ta.livewicketplus.dto.Match;
 import com.ta.livewicketplus.dto.PlayerDetails;
 import com.ta.livewicketplus.util.JPAUtil;

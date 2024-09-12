@@ -23,10 +23,8 @@ public class JPAUtil {
     private static final Logger logger = LoggerFactory.getLogger(JPAUtil.class);
     private static volatile EntityManagerFactory emf;
 
-    // Path to the configuration file
     private static final Path CONFIG_PATH = Paths.get("D:\\LiveWicketPlus\\config\\db.properties");
 
-    // Static block to initialize EntityManagerFactory once and start file watcher
     static {
         loadConfig();
         try {
@@ -36,11 +34,9 @@ public class JPAUtil {
         }
     }
 
-    // Prevent instantiation
     private JPAUtil() {}
 
     private static void loadConfig() {
-        // Properly close existing EntityManagerFactory if it exists
         if (emf != null && emf.isOpen()) {
             emf.close();
             logger.info("Previous EntityManagerFactory closed.");
@@ -49,7 +45,6 @@ public class JPAUtil {
         Properties externalProperties = new Properties();
         try (FileInputStream fileInput = new FileInputStream(CONFIG_PATH.toFile())) {
             externalProperties.load(fileInput);
-            // You might need to handle the properties manually here
             emf = Persistence.createEntityManagerFactory("LiveWicketPlus", externalProperties);
             logger.info("EntityManagerFactory created successfully with external properties.");
         } catch (IOException e) {
@@ -61,7 +56,7 @@ public class JPAUtil {
 
     public static EntityManager getEntityManager() {
         if (emf == null || !emf.isOpen()) {
-            loadConfig();  // Re-load if the EntityManagerFactory is not available
+            loadConfig();
         }
         return emf.createEntityManager();
     }
@@ -73,12 +68,10 @@ public class JPAUtil {
         }
     }
 
-    // Start file watcher for configuration file
     private static void startFileWatcher(Path dir) throws IOException {
         WatchService watchService = FileSystems.getDefault().newWatchService();
         dir.register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
 
-        // Start file watching in a separate thread
         new Thread(() -> {
             while (true) {
                 try {
